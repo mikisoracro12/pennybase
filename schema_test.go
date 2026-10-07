@@ -8,7 +8,7 @@ import (
 	"testing"
 )
 
-const testID = "test0001"
+const testID = "test021001"
 
 func TestFieldSchema(t *testing.T) {
 	tests := []struct {
