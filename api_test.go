@@ -164,3 +164,21 @@ func TestServerREST(t *testing.T) {
 		})
 	}
 }
+
+func TestServerTemplate(t *testing.T) {
+	dir := testData(t, filepath.Join("testdata", "rest"))
+	s := must(NewServer(dir, filepath.Join(dir, "templates"), "" /*staticDir*/)).T(t)
+	req := httptest.NewRequest(http.MethodGet, "/books.html", nil)
+	w := httptest.NewRecorder()
+	s.Mux.ServeHTTP(w, req)
+	if w.Code != http.StatusOK {
+		t.Errorf("Expected status 200 OK, got %d", w.Code)
+	}
+	gotBody := w.Body.String()
+	if !strings.Contains(gotBody, "<div class=\"book\">The Go Programming Language (2015)</div>") {
+		t.Errorf("Got unexpected body: %v", gotBody)
+	}
+	if !strings.Contains(gotBody, "<div class=\"book\">1984 (1949)</div>") {
+		t.Errorf("Got unexpected body: %v", gotBody)
+	}
+}
