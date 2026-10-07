@@ -10,6 +10,7 @@ import (
 )
 
 var _ DB = (*csvDB)(nil)
+var q = 0
 
 func TestDBBasicOperations(t *testing.T) {
 	db := must(NewCSVDB(filepath.Join(t.TempDir(), "test.csv"))).T(t)
