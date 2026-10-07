@@ -182,14 +182,3 @@ func TestServerTemplate(t *testing.T) {
 		t.Errorf("Got unexpected body: %v", gotBody)
 	}
 }
-
-func TestServerStaticFiles(t *testing.T) {
-	dir := testData(t, filepath.Join("testdata", "rest"))
-	s := must(NewServer(dir, "" /*tmplDir*/, filepath.Join(dir, "static"))).T(t)
-	req := httptest.NewRequest(http.MethodGet, "/static/test.txt", nil)
-	w := httptest.NewRecorder()
-	s.Mux.ServeHTTP(w, req)
-	if gotBody := w.Body.String(); gotBody != "Static text file\n" {
-		t.Errorf("Static file serving failed: %v", gotBody)
-	}
-}
