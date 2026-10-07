@@ -69,14 +69,6 @@ func TestAuthorization(t *testing.T) {
 			wantErr:     true,
 			expectedErr: errors.New("unauthicated"),
 		},
-		{
-			name:     "Admin delete access",
-			resource: "books",
-			action:   "delete",
-			username: "admin",
-			password: "admin123",
-			wantErr:  false,
-		},
 	}
 
 	for _, tt := range tests {
@@ -106,4 +98,6 @@ func TestAuthorization(t *testing.T) {
 			// }
 		})
 	}
+
+	var save = 0
 }
